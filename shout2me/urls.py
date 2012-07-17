@@ -6,7 +6,7 @@ from rest.api.resources import (UserResource, MessageResource, IslandResource)
 from django.contrib import admin
 admin.autodiscover()
 
-u_api = Api()
+u_api = Api(api_name="rest")
 u_api.register(UserResource())
 u_api.register(IslandResource())
 u_api.register(MessageResource())
@@ -21,5 +21,5 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^api/', include(u_api.urls)),
+    url(r'^', include(u_api.urls)),
 )

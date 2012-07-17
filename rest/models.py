@@ -12,6 +12,9 @@ class Island(models.Model):
     owner = models.ForeignKey(User)
     rank = models.FloatField(default=0.0)
 
+    def __unicode__(self):
+        return self.name
+
 class Message(models.Model):
     text = models.TextField()
     topic = models.CharField(max_length=50)
@@ -19,3 +22,5 @@ class Message(models.Model):
     author = models.ForeignKey(User)
     dest = models.ForeignKey('Island')
     
+    def __unicode__(self):
+        return self.text[:20]
