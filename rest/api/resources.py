@@ -5,13 +5,20 @@ from tastypie import fields
 
 
 class UserResource(ModelResource):
+
     class Meta:
         queryset = User.objects.all()
         fields = ['username']
         allowed_methods = ['get']
-
+        include_resource_uri = False
+        
+    def alter_list_data_to_serialize(self, request, data_dict):
+        return clean_data_dict(data_dict)
+        
+        
 class IslandResource(ModelResource):
     owner = fields.ForeignKey(UserResource, 'owner', full=True)
+    
     class Meta:
         queryset = Island.objects.all()
         filtering = {
@@ -21,6 +28,10 @@ class IslandResource(ModelResource):
             'lat': ['exact', 'lt', 'lte', 'gte', 'gt'],
         }
         ordering = ['rank']
+        include_resource_uri = False
+        
+    def alter_list_data_to_serialize(self, request, data_dict):
+        return clean_data_dict(data_dict)
 
 class MessageResource(ModelResource):
     dest = fields.ForeignKey(IslandResource, 'dest')
@@ -33,3 +44,14 @@ class MessageResource(ModelResource):
             'topic': [],
         }
         ordering = ['date']
+        include_resource_uri = False
+        
+    def alter_list_data_to_serialize(self, request, data_dict):
+        return clean_data_dict(data_dict)
+        
+        
+        
+def clean_data_dict(data_dict):
+    if isinstance(data_dict, dict):
+        del(data_dict['meta'])
+    return data_dict
