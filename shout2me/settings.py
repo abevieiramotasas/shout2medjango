@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 # Django settings for shout2me project.
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -14,22 +14,21 @@ import os
 PROJECT_PATH = os.getcwd()
 SQLITE_DB_PATH = os.path.join(PROJECT_PATH, 'shout2me.db')
 
+# se em producao
+import dj_database_url
+DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
 # se em desenvolvimento
-if not DEBUG:
-    import dj_database_url
-    DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
-# se em produção
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': SQLITE_DB_PATH,                      # Or path to database file if using sqlite3.
-            'USER': '',                      # Not used with sqlite3.
-            'PASSWORD': '',                  # Not used with sqlite3.
-            'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-            'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-        }
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': SQLITE_DB_PATH,                      # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
+}"""
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
