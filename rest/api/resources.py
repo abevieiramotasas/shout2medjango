@@ -11,7 +11,7 @@ class UserResource(ModelResource):
         allowed_methods = ['get']
 
 class IslandResource(ModelResource):
-    owner = fields.ForeignKey(UserResource, 'owner')
+    owner = fields.ForeignKey(UserResource, 'owner', full=True)
     class Meta:
         queryset = Island.objects.all()
         filtering = {
@@ -20,6 +20,7 @@ class IslandResource(ModelResource):
             'lon': ['exact', 'lt', 'lte', 'gte', 'gt'],
             'lat': ['exact', 'lt', 'lte', 'gte', 'gt'],
         }
+        ordering = ['rank']
 
 class MessageResource(ModelResource):
     dest = fields.ForeignKey(IslandResource, 'dest')
@@ -31,3 +32,4 @@ class MessageResource(ModelResource):
             'author': ['exact'],
             'topic': [],
         }
+        ordering = ['date']

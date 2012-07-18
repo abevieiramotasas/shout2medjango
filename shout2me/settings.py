@@ -1,4 +1,4 @@
-# -*- encoding: utf-8
+# -*- encoding: utf-8 -*-
 # Django settings for shout2me project.
 
 DEBUG = True
