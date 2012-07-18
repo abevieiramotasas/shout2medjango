@@ -41,7 +41,7 @@ class MessageResource(ModelResource):
             'dest': ['exact'],
             'date': ['exact', 'lt', 'lte', 'gte', 'gt'],
             'author': ['exact'],
-            'topic': [],
+            'topic': ['exact'],
         }
         ordering = ['date']
         include_resource_uri = False
