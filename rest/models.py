@@ -6,9 +6,9 @@ from django.contrib.auth.models import User
 
 class Island(models.Model):
     name = models.CharField(max_length=30)
-    lon = models.FloatField()
-    lat = models.FloatField()
-    desc = models.TextField()
+    longitude = models.FloatField()
+    latitude = models.FloatField()
+    description = models.TextField()
     owner = models.ForeignKey(User)
     rank = models.FloatField(default=0.0)
 
