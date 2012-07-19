@@ -20,14 +20,14 @@ class UserResource(ModelResource):
         fields = ['username']
         allowed_methods = ['get']
         include_resource_uri = False
-
+        
     def alter_list_data_to_serialize(self, request, data_dict):
         return clean_data_dict(data_dict)
-
+        
+        
 class IslandResource(ModelResource):
-
-    owner = fields.ForeignKey(UserResource, 'owner')
-
+    owner = fields.ForeignKey(UserResource, 'owner', full=True)
+    
     class Meta:
         queryset = Island.objects.all()
         filtering = {
@@ -38,8 +38,6 @@ class IslandResource(ModelResource):
         }
         ordering = ['rank']
         include_resource_uri = False
-        authorization = AbAuthorization()
-
         
     def alter_list_data_to_serialize(self, request, data_dict):
         return clean_data_dict(data_dict)
@@ -55,7 +53,7 @@ class MessageResource(ModelResource):
             'dest_id': ['exact'],
             'date': ['exact', 'lt', 'lte', 'gte', 'gt'],
             'author': ['exact'],
-            'topic': [],
+            'topic': ['exact'],
         }
         ordering = ['date']
         include_resource_uri = False
